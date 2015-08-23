@@ -17,9 +17,8 @@ pc.script.create("ball", function (app) {
             console.log(sinep.model.model.meshInstances[0]);
             camera.script['camera-orbit'].on('orbit ready', function() {
                 setTimeout(function() {
-                    lightComponent.enabled = true;
                     console.log(that.entity.model.model.graph.findByName('Text'));
-                    lightUp(app, that, instance);
+                    lightUp(app, that, instance, lightComponent);
                 }, 250);
             });
         },
@@ -40,12 +39,18 @@ pc.script.create("ball", function (app) {
     return ScriptObject;
 });
 
-function lightUp(context, that, instance) {
+function lightUp(context, that, instance, lightComponent) {
     console.log('ses');
     console.log(context.assets);
     var litMat = context.assets.get(that.litMat).resource;
     //getAssetByResourceId
     var originalMat = instance.material;
+   setTimeout(function() {
+        instance.material = litMat;
+    }, 0);
+    setTimeout(function() {
+        instance.material = originalMat;
+    }, 50);
     setTimeout(function() {
         instance.material = litMat;
     }, 1250);
@@ -67,4 +72,7 @@ function lightUp(context, that, instance) {
     setTimeout(function() {
         instance.material = litMat;
     }, 2050);
+    setTimeout(function() {
+        lightComponent.enabled = true;
+    }, 2550);
 }
