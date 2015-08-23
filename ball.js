@@ -7,8 +7,11 @@ pc.script.create("ball", function (app) {
     ScriptObject.prototype = {
         initialize: function () {
             var camera = app.root.findByName('Camera');
+            var lightComponent = this.entity.light;
+            lightComponent.enabled = false;
             camera.script['camera-orbit'].on('orbit ready', function() {
                 console.log('light up');
+                lightComponent.enabled = true;
                 //light up ball
             });
         },
