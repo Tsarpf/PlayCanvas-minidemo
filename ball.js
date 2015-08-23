@@ -1,3 +1,5 @@
+pc.script.attribute("litMat", "asset", [], {type: "material"});
+
 pc.script.create("ball", function (app) {
     var ScriptObject = function (entity) {
         this.entity = entity;
@@ -9,10 +11,16 @@ pc.script.create("ball", function (app) {
             var camera = app.root.findByName('Camera');
             var lightComponent = this.entity.light;
             lightComponent.enabled = false;
+            var that = this;
+            var sinep = app.root.findByName('sinep');
+            var instance = sinep.model.model.meshInstances[0];
+            console.log(sinep.model.model.meshInstances[0]);
             camera.script['camera-orbit'].on('orbit ready', function() {
-                console.log('light up');
-                lightComponent.enabled = true;
-                //light up ball
+                setTimeout(function() {
+                    lightComponent.enabled = true;
+                    console.log(that.entity.model.model.graph.findByName('Text'));
+                    lightUp(app, that, instance);
+                }, 250);
             });
         },
 
@@ -31,3 +39,12 @@ pc.script.create("ball", function (app) {
 
     return ScriptObject;
 });
+
+function lightUp(context, that, instance) {
+    console.log('ses');
+    console.log(context.assets);
+    var litMat = context.assets.get(that.litMat).resource;
+    //getAssetByResourceId
+    var originalMat = instance.material;
+    instance.material = litMat;
+}
