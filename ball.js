@@ -46,5 +46,25 @@ function lightUp(context, that, instance) {
     var litMat = context.assets.get(that.litMat).resource;
     //getAssetByResourceId
     var originalMat = instance.material;
-    instance.material = litMat;
+    setTimeout(function() {
+        instance.material = litMat;
+    }, 1250);
+    setTimeout(function() {
+        instance.material = originalMat;
+    }, 1330);
+    setTimeout(function() {
+        instance.material = litMat;
+    }, 1490);
+    setTimeout(function() {
+        instance.material = originalMat;
+    }, 1580);
+    setTimeout(function() {
+        instance.material = litMat;
+    }, 1620);
+    setTimeout(function() {
+        instance.material = originalMat;
+    }, 1950);
+    setTimeout(function() {
+        instance.material = litMat;
+    }, 2050);
 }
